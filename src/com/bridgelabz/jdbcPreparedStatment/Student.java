@@ -1,4 +1,4 @@
-package com.bridgelabz.jdbc;
+package com.bridgelabz.jdbcPreparedStatment;
 
 public class Student
 {

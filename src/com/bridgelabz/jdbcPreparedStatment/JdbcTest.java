@@ -1,4 +1,4 @@
-package com.bridgelabz.jdbc;
+package com.bridgelabz.jdbcPreparedStatment;
 
 import java.util.Iterator;
 import java.util.List;
@@ -8,8 +8,6 @@ public class JdbcTest
 {
 	public static void main(String[] args)
 	{
-		String studName,studAddress,studDept;
-		long studContactNo;
 		int choice=0,studId;
 		boolean flag;
 		Student student = new Student();
@@ -47,15 +45,7 @@ public class JdbcTest
 			System.out.println("Enter the student id to update details: ");
 			studId = scanner.nextInt();
 			student.setStudId(studId);
-			if(studId == student.getStudId())
-			{
-				operation.updateStudentOperation(student);
-
-			}
-			else
-			{
-				System.out.println("Id  not Found");
-			}
+			operation.updateStudentOperation(student);
 			break;
 		case 3:
 			System.out.println("Enter the student id to delete details: ");
