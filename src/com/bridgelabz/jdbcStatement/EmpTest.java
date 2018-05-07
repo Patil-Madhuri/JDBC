@@ -1,10 +1,9 @@
 package com.bridgelabz.jdbcStatement;
 
 import java.util.Iterator;
+
 import java.util.List;
 import java.util.Scanner;
-
-import com.bridgelabz.jdbcPreparedStatment.Student;
 
 public class EmpTest
 {
