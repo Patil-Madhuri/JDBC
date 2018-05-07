@@ -11,7 +11,7 @@ import java.util.Scanner;
 import com.bridgelabz.jdbcPreparedStatment.DatabaseConnection;
 public class EmpOperations
 {
-	 String empName,empAddress,updateQuery,selectQuery;
+	 String empName,empAddress,updateQuery,selectQuery,searchQuery;
 	 int empId,choice=0;
 	 double empSalary;
 	 long empContactNo;
@@ -186,25 +186,133 @@ public class EmpOperations
 	
 	public boolean deleteEmployee(int empid)
 	{
+		connection = DatabaseConnection.getconnection();
+		try {
+			statement = connection.createStatement();
+			String deleteQuery = "delete from employee where Emp_id="+empid+" ";
+			int x = statement.executeUpdate(deleteQuery);
+			if(x > 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return false;
 	}
 	
 	public void searchEmpOperation(Employee employee)
 	{
+		do
+		{
+			System.out.println("1.Search Employee By Id \n2.Search Employee By Name \n3.Search Employee By Salary \n4.Stop Search");
+			System.out.println("Enter your choice: ");
+			choice = scanner.nextInt();
+			switch(choice)
+			{
+			case 1:
+				System.out.println("Enter the employee id to search details: ");
+				empId = scanner.nextInt();
+				employee.setEmpId(empId);
+				searchEmployeeById(empId);
+				break;
+			case 2:
+				System.out.println("Enter the employee name to search details: ");
+				empName = scanner.next();
+				employee.setEmpName(empName);
+				searchEmployeeByName(empName);
+				break;
+			case 3:
+				System.out.println("Enter the employee salary to search details: ");
+				empSalary = scanner.nextDouble();
+				employee.setEmpSalary(empSalary);
+				searchEmployeeBySalary(empSalary);
+				break;
+			case 4:
+				status = false;
+				break;
+				default:
+					System.out.println("Invalid choice");
+			}
+		}while(status);
 		
 	}
 	
 	public Employee searchEmployeeById(int id)
 	{
-		return null;
+		connection = DatabaseConnection.getconnection();
+		try {
+			statement = connection.createStatement();
+			searchQuery = "select * from employee where Emp_id="+id+" ";
+			ResultSet resultSet = statement.executeQuery(searchQuery);
+			while(resultSet.next())
+			{
+				employee.setEmpId(resultSet.getInt("Emp_id"));
+				employee.setEmpName(resultSet.getString("Emp_Name"));
+				employee.setEmpAddress(resultSet.getString("Emp_Address"));
+				employee.setEmpSalary(resultSet.getDouble("Emp_Salary"));
+				employee.setEmpContactNo(resultSet.getLong("Emp_ContactNo"));
+			}
+			System.out.println(employee);
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return employee;
 	}
 	public Employee searchEmployeeByName(String empName)
 	{
-		return null;
+		connection = DatabaseConnection.getconnection();
+		try {
+			statement = connection.createStatement();
+			searchQuery = "select * from employee where Emp_Name="+empName+" ";
+			ResultSet resultSet = statement.executeQuery(searchQuery);
+			while(resultSet.next())
+			{
+				employee.setEmpId(resultSet.getInt("Emp_id"));
+				employee.setEmpName(resultSet.getString("Emp_Name"));
+				employee.setEmpAddress(resultSet.getString("Emp_Address"));
+				employee.setEmpSalary(resultSet.getDouble("Emp_Salary"));
+				employee.setEmpContactNo(resultSet.getLong("Emp_ContactNo"));
+			}
+			System.out.println(employee);
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return employee;
 	}
 	public Employee searchEmployeeBySalary(double salary)
 	{
-		return null;
+		connection = DatabaseConnection.getconnection();
+		try {
+			statement = connection.createStatement();
+			
+			searchQuery = "select * from employee where Emp_Salary="+salary+" ";
+			ResultSet resultSet = statement.executeQuery(searchQuery);
+			while(resultSet.next())
+			{
+				employee.setEmpId(resultSet.getInt("Emp_id"));
+				employee.setEmpName(resultSet.getString("Emp_Name"));
+				employee.setEmpAddress(resultSet.getString("Emp_Address"));
+				employee.setEmpSalary(resultSet.getDouble("Emp_Salary"));
+				employee.setEmpContactNo(resultSet.getLong("Emp_ContactNo"));
+				System.out.println(employee);
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return employee;
 	}
 	
 	public  List<Employee> displayAllEmployee()

@@ -10,7 +10,7 @@ public class EmpTest
 {
 	public static void main(String[] args) 
 	{
-		int choice=0;
+		int choice=0,empId;
 		boolean flag;
 		Scanner scanner = new Scanner(System.in);
 		Employee employee = new Employee();
@@ -38,8 +38,20 @@ public class EmpTest
 				empOperations.updateEmpOperation(employee);
 				break;
 			case 3:
+				System.out.println("Enter the Employee id to delete the details: ");
+				empId = scanner.nextInt();
+				flag = empOperations.deleteEmployee(empId);
+				if(flag)
+				{
+					System.out.println("-----Deleted Sucessfully-----");
+				}
+				else
+				{
+					System.out.println("-----Failed to delete-----");
+				}
 				break;
 			case 4:
+				empOperations.searchEmpOperation(employee);
 				break;
 			case 5:
 				List<Employee> l = empOperations.displayAllEmployee();
