@@ -74,6 +74,6 @@ public class CallableEmployeTest
 				System.out.println("Invalid choice");
 			}
 		}while(choice > 0);
-				
+		scanner.close();		
 	}
 }
